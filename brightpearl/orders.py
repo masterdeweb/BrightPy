@@ -31,7 +31,8 @@ class OrdersMixin:
         # Pass through Brightpearl search filters verbatim
         params.update(filters)
 
-        # Order search expects POST with a JSON body (filters + pagination)
+        # Order search on this deployment uses GET with query params
+        # (keeps filters/pagination applied correctly across accounts)
         return self._request("GET", "order-service/order-search", params=params)
 
     # --- Backwards-friendly list_* that uses search under the hood ---

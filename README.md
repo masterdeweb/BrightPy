@@ -26,7 +26,7 @@ Python client for the Brightpearl API (orders + products).
   ```
 
 ## Orders
-- search_orders: Low-level search.
+- search_orders: Low-level search (GET with query params).
   - Params: `columns: List[str] | None`, `sort: str | None` (e.g., `updatedOn:DESC`), `page_size: int`, `page: int | None`, `first_result: int | None`, plus Brightpearl filters.
   - Pagination: If `first_result` is set it is used; otherwise `page` is sent.
   - Example: `api.search_orders(page_size=50, page=1, sort="orderId:ASC", orderStatusId=1)`
@@ -67,7 +67,7 @@ Notes:
 - `order_by` translates to the underlying API’s sort parameter.
 
 ## Products
-- search_products: Low-level search (POST with JSON body).
+- search_products: Low-level search (GET with query params).
   - Params: `columns: List[str] | None`, `sort: str | None` (e.g., `updatedOn:DESC`), `page_size: int`, `page: int | None`, `first_result: int | None`, plus Brightpearl filters (e.g., `SKU`, `productName`, `brandId`).
   - Example: `api.search_products(page_size=50, sort="updatedOn:DESC", brandId=10)`
 

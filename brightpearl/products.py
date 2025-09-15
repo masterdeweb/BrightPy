@@ -19,14 +19,16 @@ class ProductsMixin:
         if sort:
             params["sort"] = sort
 
+        # Pagination: mirror orders behavior for compatibility across accounts
         if first_result is not None:
             params["firstResult"] = int(first_result)
         elif page is not None:
-            params["firstResult"] = max(0, (int(page) - 1) * page_size)
+            params["page"] = int(page)
 
         params.update(filters)
-        # Product search expects POST with JSON payload, not query params
-        return self._request("GET", "product-service/product-search", json=params)
+        # Product search on this deployment expects GET with query params
+        # (JSON bodies on GET are ignored, which led to unfiltered results).
+        return self._request("GET", "product-service/product-search", params=params)
 
     # --- Backwards-friendly list_* that uses search under the hood ---
     def list_products(
